@@ -1,0 +1,29 @@
+{
+  "name": "disruptive",
+  "version": "1.0.0",
+  "description": "Prueba técnica",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon -r dotenv/config src/server.ts"
+  },
+  "author": "Mario",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2",
+    "express-validator": "6.6.1",
+    "http-status-codes": "^2.2.0",
+    "jsonwebtoken": "8.5.1",
+    "pg": "^8.5.0",
+    "reflect-metadata": "^0.1.13",
+    "sequelize": "^5.21.7",
+    "sequelize-typescript": "^1.1.0"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.17",
+    "@types/jsonwebtoken": "^9.0.1",
+    "@typescript-eslint/eslint-plugin": "^5.58.0",
+    "@typescript-eslint/parser": "^5.58.0",
+    "dotenv": "^16.0.3",
+    "eslint": "^8.38.0"
+  }
+}
