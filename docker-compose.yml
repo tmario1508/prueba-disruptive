@@ -1,0 +1,14 @@
+version: '3.6'
+services:
+  database:
+    container_name: disruptive-database
+    image: postgres:12.8
+    restart: always
+    ports:
+    - 5432:5432
+    env_file: .env
+    volumes:
+    - pg_data:/var/lib/postgresql/data
+
+volumes:
+  pg_data:
