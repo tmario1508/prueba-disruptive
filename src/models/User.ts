@@ -26,7 +26,7 @@ export default class User extends Model<User> {
     rest() {
         return {
             id: this.id,
-            userName: this.userName,
+            user_name: this.userName,
             email: this.email,
             role: this.role,
             name: this.name,

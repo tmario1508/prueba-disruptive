@@ -86,3 +86,13 @@ export class UnauthorizedError extends GenericError {
 		return StatusCodes.UNAUTHORIZED;
 	}
 }
+
+export class MissingAuthorizationHeaderError extends GenericError {
+	constructor() {
+		super('MISSING_AUTHORIZATION_HEADER');
+	}
+
+	getCode() {
+		return StatusCodes.BAD_REQUEST
+	}
+}

@@ -6,11 +6,18 @@ type CreateUserRequest = {
     role: string;
 };
 
+type UpdateUserRequest = {
+    name: string;
+    password?: string;
+    role: string;
+}
+
 type DisruptiveJWT = {
     endUserID: number;
 };
 
 type LoginUserRequest = {
-    email: string;
+    user: string;
     password: string;
+    isEmail?: boolean;
 };

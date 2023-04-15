@@ -9,8 +9,24 @@ export default class UserService {
             email: payload.email,
             role: payload.role,
             name: payload.name,
+            password: encryptor.hashPassword(payload.password)
         });
-        return user;
+        return user.rest();
+    }
+
+    public async updateUser(id: string, payload: UpdateUserRequest) {
+        const user = await User.findByPk(id);
+        user!.password = payload.password ? encryptor.hashPassword(payload.password) : user!.password;
+        user!.name = payload.name;
+        user!.role = payload.role;
+        await user.save();
+
+        return user.rest();
+    }
+
+    public async deleteUser(id: string) {
+        const user = await User.findByPk(id);
+        await user.destroy();
     }
 
     public async getUser(email: string): Promise<User | null> {
@@ -22,11 +38,18 @@ export default class UserService {
     }
 
     public async loginUser(payload: LoginUserRequest) {
-        const user = await User.findOne({ where: { email: payload.email, password: payload.password } });
+        // Login with email or username
+        let query: { email?: string, password?: string, userName?: string } = payload.isEmail ? { email: payload.user } : { userName: payload.user };
+        query.password = encryptor.hashPassword(payload.password);
+        // Find user
+        const user = await User.findOne({ 
+            where: query
+        });
 
         if (!user) {
             throw new UnauthorizedError('Wrong email or password');
         } else {
+            // Generate token
             return {
                 token: encryptor.generateToken({ endUserID: user.id }),
             }
