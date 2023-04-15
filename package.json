@@ -4,7 +4,8 @@
   "description": "Prueba técnica",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon -r dotenv/config src/server.ts"
+    "dev": "nodemon -r dotenv/config src/server.ts",
+    "test:ts": "cross-env NODE_ENV=travis mocha --exit -node --timeout 60000 -r dotenv/config -r ts-node/register src/tests/**/*.test.ts"
   },
   "author": "Mario",
   "license": "ISC",
@@ -22,12 +23,22 @@
     "yamljs": "^0.3.0"
   },
   "devDependencies": {
+    "@types/chai": "^4.3.4",
+    "@types/chai-as-promised": "^7.1.5",
     "@types/jsonwebtoken": "^9.0.1",
+    "@types/mocha": "^10.0.1",
     "@types/swagger-ui-express": "^4.1.3",
     "@types/yamljs": "^0.2.31",
     "@typescript-eslint/eslint-plugin": "^5.58.0",
     "@typescript-eslint/parser": "^5.58.0",
+    "chai": "^4.3.7",
+    "chai-as-promised": "^7.1.1",
+    "chai-http": "^4.3.0",
+    "cross-env": "^7.0.3",
     "dotenv": "^16.0.3",
-    "eslint": "^8.38.0"
+    "eslint": "^8.38.0",
+    "mocha": "^10.2.0",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.0.4"
   }
 }

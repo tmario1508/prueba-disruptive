@@ -321,6 +321,268 @@ paths:
                   description:
                     type: string
                     example: "Internal server error"
+  /topics:
+    get:
+      summary: Get all topics
+      description: Get all topics
+      tags:
+        - Topic
+      responses:
+        '200':
+          description: Topics found
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/responses/Topics'
+        '404':
+          description: Topics not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "TOPICS_NOT_FOUND"
+                  description:
+                    type: string
+                    example: "Topics not found"
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "INTERNAL_SERVER_ERROR"
+                  description:
+                    type: string
+                    example: "Internal server error"
+  /topic:
+    post:
+      summary: Create topic
+      description: Create topic
+      tags:
+        - Topic
+      requestBody:
+        description: Topic to create
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Topic'
+      responses:
+        '200':
+          description: Topic created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/Topic'
+        '400':
+          description: Wrong Data
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "WRONG_DATA"
+                  description:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        field:
+                          type: string
+                          example: "Validation failed"
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "INTERNAL_SERVER_ERROR"
+                  description:
+                    type: string
+                    example: "Internal server error"
+  /topic/{id}:
+    update: 
+      summary: Update topic
+      description: Update topic by id
+      tags:
+        - Topic
+      parameters:
+        - name: id
+          in: path
+          description: Topic id
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: Topic to update
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Topic'
+      responses:
+        '200':
+          description: Topic updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/Topic'
+        '400':
+          description: Wrong Data
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "WRONG_DATA"
+                  description:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        field:
+                          type: string
+                          example: "Validation failed"
+        '404':
+          description: Topic not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "TOPIC_NOT_FOUND"
+                  description:
+                    type: string
+                    example: "Topic not found"
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "INTERNAL_SERVER_ERROR"
+                  description:
+                    type: string
+                    example: "Internal server error"
+  /topig/{id }:
+    get:
+      summary: Get topic by id
+      description: Get topic by id
+      tags:
+        - Topic
+      parameters:
+        - name: id
+          in: path
+          description: Topic id
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Topic found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/Topic'
+        '404':
+          description: Topic not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "TOPIC_NOT_FOUND"
+                  description:
+                    type: string
+                    example: "Topic not found"
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "INTERNAL_SERVER_ERROR"
+                  description:
+                    type: string
+                    example: "Internal server error"
+  /topic/{ id}:
+    delete:
+      summary: Delete topic
+      description: Delete topic by id
+      tags:
+        - Topic
+      parameters:
+        - name: id
+          in: path
+          description: Topic id
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Topic deleted
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "TOPIC_DELETED"
+                  description:
+                    type: string
+                    example: "Topic deleted"
+        '404':
+          description: Topic not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "TOPIC_NOT_FOUND"
+                  description:
+                    type: string
+                    example: "Topic not found"
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "INTERNAL_SERVER_ERROR"
+                  description:
+                    type: string
+                    example: "Internal server error"
 components:
   securitySchemes:
     bearerAuth:
@@ -370,6 +632,22 @@ components:
             - reader
             - creator
           example: "creator"
+    Topic:
+      type: object
+      required:
+        - name
+        - description
+        - image
+      properties:
+        name:
+          type: string
+          example: "My Topic"
+        description:
+          type: string
+          example: "My Topic Description"
+        image:
+          type: string
+          example: "https://someimage.com"
   responses:
     User:
       type: object
@@ -389,3 +667,36 @@ components:
         user_name:
           type: string
           example: "myname00"
+    Topic:
+      type: object
+      properties:
+        id: 
+          type: number
+          example: 1
+        name:
+          type: string
+          example: "My Topic"
+        description:
+          type: string
+          example: "My Topic Description"
+        image:
+          type: string
+          example: "https://someimage.com"
+    Topics:
+      type: array
+      items:
+        type: object
+        properties:
+          name:
+            type: string
+            example: "My Topic"
+          description:
+            type: string
+            example: "My Topic Description"
+          id:
+            type: number
+            example: 1
+          image:
+            type: string
+            example: "https://someimage.com"
+

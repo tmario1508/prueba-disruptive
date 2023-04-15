@@ -21,3 +21,9 @@ type LoginUserRequest = {
     password: string;
     isEmail?: boolean;
 };
+
+type CreateOrUpdateTopicRequest = {
+    name: string;
+    description: string;
+    image: string;
+};
