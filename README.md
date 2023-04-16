@@ -1,3 +1,19 @@
+## Structure
+
+```txt
+| docs: "Swagger documentation"
+| src    
+|- api
+|- config
+|- db
+|- loaders
+|- models
+|- services
+|- tests
+|- types
+|
+```
+
 ## DEVELOPMENT
 
 ### How to start
@@ -32,7 +48,12 @@ yarn install
 
 Check the .env.example file and create a .env file with the same variables
 
-6. For develop
+6. Install [nodemon](github.com/remy/nodemon) globally
+```sh
+yarn global add nodemon
+```
+
+7. For develop
 
 ```sh
 yarn dev
