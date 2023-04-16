@@ -155,6 +155,8 @@ paths:
     put:
       summary: Update user
       description: Update user by id
+      security:
+        - bearerAuth: []
       tags:
         - User
       parameters:
@@ -226,6 +228,8 @@ paths:
     get:
       summary: Get user
       description: Get user by id
+      security:
+        - bearerAuth: []
       tags:
         - User
       parameters:
@@ -272,6 +276,8 @@ paths:
     delete:
       summary: Delete user
       description: Delete user by id
+      security:
+        - bearerAuth: []
       tags:
         - User
       parameters:
@@ -325,6 +331,8 @@ paths:
     get:
       summary: Get all topics
       description: Get all topics
+      security:
+        - bearerAuth: []
       tags:
         - Topic
       responses:
@@ -366,6 +374,8 @@ paths:
     post:
       summary: Create topic
       description: Create topic
+      security:
+        - bearerAuth: []
       tags:
         - Topic
       requestBody:
@@ -417,6 +427,8 @@ paths:
     update: 
       summary: Update topic
       description: Update topic by id
+      security:
+        - bearerAuth: []
       tags:
         - Topic
       parameters:
@@ -488,6 +500,8 @@ paths:
     get:
       summary: Get topic by id
       description: Get topic by id
+      security:
+        - bearerAuth: []
       tags:
         - Topic
       parameters:
@@ -534,6 +548,8 @@ paths:
     delete:
       summary: Delete topic
       description: Delete topic by id
+      security:
+        - bearerAuth: []
       tags:
         - Topic
       parameters:
@@ -583,12 +599,578 @@ paths:
                   description:
                     type: string
                     example: "Internal server error"
+  /category:
+    post:
+      summary: Create category
+      description: Create category
+      security:
+        - bearerAuth: []
+      tags:
+        - Category
+      requestBody:
+        description: Category to create
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Category'
+      responses:
+        '200':
+          description: Category created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/Category'
+        '400':
+          description: Wrong Data
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "WRONG_DATA"
+                  description:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        field:
+                          type: string
+                          example: "Validation failed"
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "INTERNAL_SERVER_ERROR"
+                  description:
+                    type: string
+                    example: "Internal server error"
+  /category/{id}:
+    get:
+      summary: Get category by id
+      description: Get category by id
+      security:
+        - bearerAuth: []
+      tags:
+        - Category
+      parameters:
+        - name: id
+          in: path
+          description: Category id
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Category found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/Category'
+        '404':
+          description: Category not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "CATEGORY_NOT_FOUND"
+                  description:
+                    type: string
+                    example: "Category not found"
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "INTERNAL_SERVER_ERROR"
+                  description:
+                    type: string
+                    example: "Internal server error"
+  /category/{ id}:
+    update:
+      summary: Update category
+      description: Update category by id
+      security:
+        - bearerAuth: []
+      tags:
+        - Category
+      parameters:
+        - name: id
+          in: path
+          description: Category id
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: Category to update
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CategoryUpdate'
+      responses:
+        '200':
+          description: Category updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/Category'
+        '400':
+          description: Wrong Data
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "WRONG_DATA"
+                  description:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        field:
+                          type: string
+                          example: "Validation failed"
+        '404':
+          description: Category not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "CATEGORY_NOT_FOUND"
+                  description:
+                    type: string
+                    example: "Category not found"
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "INTERNAL_SERVER_ERROR"
+                  description:
+                    type: string
+                    example: "Internal server error"
+  /category/{id }:
+    delete:
+      summary: Delete category
+      description: Delete category by id
+      security:
+        - bearerAuth: []
+      tags:
+        - Category
+      parameters:
+        - name: id
+          in: path
+          description: Category id
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Category deleted
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Category deleted"
+        '404':
+          description: Category not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "CATEGORY_NOT_FOUND"
+                  description:
+                    type: string
+                    example: "Category not found"
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "INTERNAL_SERVER_ERROR"
+                  description:
+                    type: string
+                    example: "Internal server error"
+  /categories:
+    get:
+      summary: Get all categories
+      description: Get all categories
+      security:
+        - bearerAuth: []
+      tags:
+        - Category
+      responses:
+        '200':
+          description: Categories found
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/responses/Categories'
+        '404':
+          description: Categories not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "CATEGORIES_NOT_FOUND"
+                  description:
+                    type: string
+                    example: "Categories not found"
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "INTERNAL_SERVER_ERROR"
+                  description:
+                    type: string
+                    example: "Internal server error"
+  /publication:
+    post:
+      summary: Create publication
+      description: Create publication
+      security:
+        - bearerAuth: []
+      tags:
+        - Publication
+      requestBody:
+        description: Publication to create
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Publication'
+      responses:
+        '201':
+          description: Publication created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/Publication'
+        '400':
+          description: Wrong Data
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "WRONG_DATA"
+                  description:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        field:
+                          type: string
+                          example: "Validation failed"
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "INTERNAL_SERVER_ERROR"
+                  description:
+                    type: string
+                    example: "Internal server error"
+  /publication/{id}:
+    put:
+      summary: Update publication
+      description: Update publication by id
+      security:
+        - bearerAuth: []
+      tags:
+        - Publication
+      parameters:
+        - name: id
+          in: path
+          description: Publication id
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: Publication to update
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Publication'
+      responses:
+        '200':
+          description: Publication updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/Publication'
+        '400':
+          description: Wrong Data
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "WRONG_DATA"
+                  description:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        field:
+                          type: string
+                          example: "Validation failed"
+        '404':
+          description: Publication not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "PUBLICATION_NOT_FOUND"
+                  description:
+                    type: string
+                    example: "Publication not found"
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "INTERNAL_SERVER_ERROR"
+                  description:
+                    type: string
+                    example: "Internal server error"
+  /publication/{id }:
+    delete:
+      summary: Delete publication
+      description: Delete publication by id
+      security:
+        - bearerAuth: []
+      tags:
+        - Publication
+      parameters:
+        - name: id
+          in: path
+          description: Publication id
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Publication deleted
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Publication deleted"
+        '404':
+          description: Publication not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "PUBLICATION_NOT_FOUND"
+                  description:
+                    type: string
+                    example: "Publication not found"
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "INTERNAL_SERVER_ERROR"
+                  description:
+                    type: string
+                    example: "Internal server error"
+  /publication/{ id}:
+    get:
+      summary: Get publication
+      description: Get publication by id
+      security:
+        - bearerAuth: []
+      tags:
+        - Publication
+      parameters:
+        - name: id
+          in: path
+          description: Publication id
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Publication found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/Publication'
+        '404':
+          description: Publication not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "PUBLICATION_NOT_FOUND"
+                  description:
+                    type: string
+                    example: "Publication not found"
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "INTERNAL_SERVER_ERROR"
+                  description:
+                    type: string
+                    example: "Internal server error"
+  /publications:
+    get:
+      summary: Get publications
+      description: Get publications
+      security:
+        - bearerAuth: []
+      tags:
+        - Publication
+      parameters:
+        - name: page
+          in: query
+          description: Page number
+          required: false
+          schema:
+            type: integer
+        - name: limit
+          in: query
+          description: Limit of publications per page
+          required: false
+          schema:
+            type: integer
+        - name: query
+          in: query
+          description: Query to search
+          required: false
+          schema:
+            type: string
+        - name: sort_by
+          in: query
+          description: Sort by field
+          required: false
+          schema:
+            type: string
+            enum:
+              - title
+              - topic
+        - name: sort_order
+          in: query
+          description: Sort order
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+      responses:
+        '200':
+          description: Publications found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  publications:
+                    type: array
+                    items:
+                      $ref: '#/components/responses/Publications'
+                  total:
+                    type: integer
+                    example: 1
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "INTERNAL_SERVER_ERROR"
+                  description:
+                    type: string
+                    example: "Internal server error"
 components:
   securitySchemes:
-    bearerAuth:
+    TokenDisruptive:
       type: apiKey
-      scheme: bearer
-      bearerFormat: JWT
       in: header
       name: Authorization
 
@@ -648,6 +1230,75 @@ components:
         image:
           type: string
           example: "https://someimage.com"
+    Category:
+      type: object
+      required:
+        - name
+        - description
+        - image
+      properties:
+        name:
+          type: string
+          example: "My Category"
+        description:
+          type: string
+          example: "My Category Description"
+        image:
+          type: string
+          example: "https://someimage.com"
+    CategoryUpdate:
+      type: object
+      required:
+        - name
+        - description
+        - image
+      properties:
+        name:
+          type: string
+          example: "My Category"
+        description:
+          type: string
+          example: "My Category Description"
+        image:
+          type: string
+          example: "https://someimage.com"
+    Publication:
+      type: object
+      required:
+        - title
+        - description
+        - topic_id
+        - contents
+      properties:
+        title:
+          type: string
+          example: "My Publication"
+        description:
+          type: string
+          example: "My Publication Description"
+        topic_id:
+          type: number
+          example: 1
+        contents:
+          type: array
+          items:
+            type: object
+            required:
+              - category_id
+              - content
+            properties:
+              category_id:
+                type: number
+                example: 1
+              content:
+                type: object
+                properties:
+                  text:
+                    type: string
+                    example: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec auctor, nisl eget ultricies lacinia, nisl nisl aliquet nisl, eget aliquet nisl nisl eget nisl. Donec auctor, nisl eget ultricies lacinia, nisl nisl aliquet nisl, eget aliquet nisl nisl eget nisl. Donec auctor, nisl eget ultricies lacinia, nisl nisl aliquet nisl, eget aliquet nisl nisl eget nisl. Donec auctor, nisl eget ultricies lacinia, nisl nisl aliquet nisl, eget aliquet nisl nisl eget nisl. Donec auctor, nisl eget ultricies lacinia, nisl nisl aliquet nisl, eget aliquet nisl nisl eget nisl. Donec auctor, nisl eget ultricies lacinia, nisl nisl aliquet nisl, eget aliquet nisl nisl eget nisl. Donec auctor, nisl eget ultricies lacinia, nisl nisl aliquet nisl, eget aliquet nisl nisl eget nisl. Donec auctor, nisl eget ultricies lacinia, nisl nisl aliquet nisl, eget aliquet nisl nisl eget nisl. Donec auctor, nisl eget ultricies lacinia, nisl nisl aliquet nisl, eget aliquet nisl nisl eget nisl. Donec auctor, nisl eget ultricies lacinia, nisl nisl aliquet nisl, eget aliquet nisl nisl eget nisl. Donec auctor, nisl eget ultricies lacinia, nisl nisl aliquet nisl, eget aliquet nisl nisl eget nisl. Donec auctor, nisl eget ultricies lacinia, nisl nisl aliquet nisl, eget aliquet nisl nisl eget nisl. Donec auctor, nisl eget ultricies lacinia, nisl nisl aliquet nisl, eget aliquet nisl nisl eget nisl. Donec auctor, nisl eget ultricies lacinia, nisl nisl aliquet nisl, eget aliquet nisl nisl eget nisl. Donec auctor, nisl eget ultricies lacinia, n"
+                  url:
+                    type: string
+                    example: "https://someimageorvideo.com"
   responses:
     User:
       type: object
@@ -699,4 +1350,119 @@ components:
           image:
             type: string
             example: "https://someimage.com"
-
+    Category:
+      type: object
+      properties:
+        id:
+          type: number
+          example: 1
+        name:
+          type: string
+          example: "My Category"
+        description:
+          type: string
+          example: "My Category Description"
+        image:
+          type: string
+          example: "https://someimage.com"
+        content_type:
+          type: string
+          example: "url"
+    Categories:
+      type: array
+      items:
+        type: object
+        properties:
+          name:
+            type: string
+            example: "My Category"
+          description:
+            type: string
+            example: "My Category Description"
+          id:
+            type: number
+            example: 1
+          image:
+            type: string
+            example: "https://someimage.com"
+          content_type:
+            type: string
+            example: "url"
+    Publication:
+      type: object
+      properties:
+        id:
+          type: number
+          example: 1
+        title:
+          type: string
+          example: "My Publication"
+        description:
+          type: string
+          example: "My Publication Description"
+        topic: 
+          type: string
+          example: "Deportes"
+        credits:
+          type: string
+          example: "mario15"
+        contents:
+          type: array
+          items:
+            type: object
+            properties:
+              category:
+                type: string
+                example: "Videos"
+              content:
+                type: object
+                properties:
+                  url:
+                    type: string
+                    example: "https://someurl.com"
+                  text:
+                    type: string
+                    example: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec auctor, nisl eget ultricies lacinia, nisl nisl aliquet nisl, eget aliquet nisl nisl sit amet nisl. Donec auctor, nisl eget ultricies lacinia, nisl nisl aliquet nisl, eget aliquet nisl nisl sit amet nisl. Donec auctor, nisl eget ultricies lacinia, nisl nisl aliquet nisl, eget aliquet nisl nisl sit amet nisl. Donec auctor, nisl eget ultricies lacinia, nisl nisl aliquet nisl, eget aliquet nisl nisl sit amet nisl. Donec auctor, nisl eget ultricies lacinia, nisl nisl aliquet nisl, eget aliquet nisl nisl sit amet nisl. Donec auctor, nisl eget ultricies lacinia, nisl nisl aliquet nisl, eget aliquet nisl nisl sit amet nisl. Donec auctor, nisl eget ultricies lacinia, nisl nisl aliquet nisl, eget aliquet nisl nisl sit amet nisl. Donec auctor, nisl eget ultricies lacinia, nisl nisl aliquet nisl, eget aliquet nisl nisl sit amet nisl. Donec auctor, nisl eget ultricies lacinia, nisl nisl aliquet nisl, eget aliquet nisl nisl sit amet nisl. Donec auctor, nisl eget ultricies lacinia, nisl nisl aliquet nisl, eget aliquet nisl nisl sit amet nisl. Donec auctor, nisl eget ultricies lacinia, nisl nisl aliquet nisl, eget aliquet nisl nisl sit amet nisl. Donec auctor, nisl eget ultricies lacinia, nisl nisl aliquet nisl, eget aliquet nisl nisl sit amet nisl. Donec auctor, nisl eget ultricies lacinia, nisl nisl aliquet nisl, eget aliquet nisl nisl sit amet nisl. Donec auctor, nisl eget ultricies lacinia, nisl nisl aliquet nisl, eget aliquet nisl nisl sit amet nisl. Done"
+    Publications:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: number
+                example: 1
+              title:
+                type: string
+                example: "My Publication"
+              description:
+                type: string
+                example: "My Publication Description"
+              topic: 
+                type: string
+                example: "Deportes"
+              credits:
+                type: string
+                example: "mario15"
+              contents:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    category:
+                      type: string
+                      example: "Videos"
+                    content:
+                      type: object
+                      properties:
+                        url:
+                          type: string
+                          example: "https://someurl.com"
+                        text:
+                          type: string
+                          example: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec auctor, nisl eget ultricies lacinia, nisl nisl aliquet nisl, eget aliquet nisl nisl sit amet nisl. Donec auctor, nisl eget ultricies lacinia, nisl nisl aliquet nisl, eget aliquet nisl nisl sit amet nisl. Donec auctor, nisl eget ultricies lacinia, nisl nisl aliquet nisl, eget aliquet nisl nisl sit amet nisl. Donec auctor, nisl eget ultricies lacinia, nisl nisl aliquet nisl, eget aliquet nisl nisl sit amet nisl. Donec auctor, nisl eget ultricies lacinia, nisl nisl aliquet nisl, eget aliquet nisl nisl sit amet nisl. Donec auctor, nisl eget ultricies lacinia, nisl nisl aliquet nisl, eget aliquet nisl nisl sit amet nisl. Donec auctor, nisl eget ultricies lacinia, nisl nisl aliquet nisl, eget aliquet nisl nisl sit amet nisl. Donec auctor, nisl eget ultricies lacinia, nisl nisl aliquet nisl, eget aliquet nisl nisl sit amet nisl. Donec auctor, nisl eget ultricies lacinia, nisl nisl aliquet nisl, eget aliquet nisl nisl sit amet nisl. Donec auctor, nisl eget ultricies lacinia, nisl nisl aliquet nisl, eget aliquet nisl nisl sit amet nisl. Donec auctor, nisl eget ultricies lacinia, nisl nisl aliquet nisl, eget aliquet nisl nisl sit amet nisl. Donec auctor, nisl eget ultricies lacinia, nisl nisl aliquet nisl, eget aliquet nisl nisl sit amet nisl. Donec auctor, nisl eget ultricies lacinia, nisl nisl aliquet nisl, eget aliquet nisl nisl sit amet nisl. Done"
+        total:
+          type: number
+          example: 1
