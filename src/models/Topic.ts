@@ -1,4 +1,6 @@
 import { Column, Model, Table } from 'sequelize-typescript';
+import TopicCategories from './TopicCategories';
+import Category from './Category';
 
 @Table
 export default class Topic extends Model<Topic> {
@@ -8,15 +10,17 @@ export default class Topic extends Model<Topic> {
     @Column
     description!: string;
 
-    @Column
-    image!: string;
+    async rest() {
+        const categories = await TopicCategories.findAll({
+            where: { topicID: this.id },
+            include: [Category]
+        });
 
-    rest() {
         return {
             id: this.id,
             name: this.name,
             description: this.description,
-            image: this.image,
+            categories: await Promise.all(categories.map((category: TopicCategories) => category.category!.rest()))
         };
     }
 }

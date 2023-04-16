@@ -14,7 +14,8 @@ export default class UserService {
         return user.rest();
     }
 
-    public async updateUser(id: string, payload: UpdateUserRequest) {
+    public async updateUser(id: string, payload: UpdateUserRequest, endUser: User) {
+        if (endUser.role !== 'admin' && endUser.id != id) throw new UnauthorizedError();
         const user = await User.findByPk(id);
         user!.password = payload.password ? encryptor.hashPassword(payload.password) : user!.password;
         user!.name = payload.name;
@@ -24,12 +25,14 @@ export default class UserService {
         return user.rest();
     }
 
-    public async deleteUser(id: string) {
+    public async deleteUser(id: string, endUser: User) {
+        if (endUser.role !== 'admin') throw new UnauthorizedError();
         const user = await User.findByPk(id);
         await user.destroy();
     }
 
-    public async getUser(email: string): Promise<User | null> {
+    public async getUser(email: string, endUser: User): Promise<User | null> {
+        if (endUser.role !== 'admin' && endUser.email != email) throw new UnauthorizedError();
         const user = await User.findOne({ where: { email } });
         if (!user) {
             throw new ResourceNotFoundError();

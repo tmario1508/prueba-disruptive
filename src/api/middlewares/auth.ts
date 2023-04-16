@@ -3,6 +3,14 @@ import { MissingAuthorizationHeaderError, UnauthorizedError } from './errors/bas
 import encryptor from '../../loaders/encryption';
 import User from '../../models/User';
 
+export const isOptionalAuth = async (req: Request, res: Response, next: NextFunction) => {
+	if (req.headers.authorization) {
+		return isAuth(req, res, next);
+	}
+
+	next();
+}
+
 export const isAuth = async (req: Request, res: Response, next: NextFunction) => {
 	if (req.headers.authorization) {
 		try {

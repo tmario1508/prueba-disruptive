@@ -8,7 +8,7 @@ import { preload } from '../loaders/preload';
 chai.use(chaiAsPromised);
 chai.use(chaiHttp);
 
-describe('Tpic', () => {
+describe('Topic', () => {
     let token: string;
     let id: number;
     before(async function () {
@@ -30,7 +30,8 @@ describe('Tpic', () => {
         expect(res.body[0]).to.have.property('id');
         expect(res.body[0]).to.have.property('name');
         expect(res.body[0]).to.have.property('description');
-        expect(res.body[0]).to.have.property('image');
+        expect(res.body[0]).to.have.property('categories');
+        expect(res.body[0].categories).to.be.an('array');
     });
 
     it('Should get a topic', async () => {
@@ -50,7 +51,6 @@ describe('Tpic', () => {
             .send({
                 name: 'Test',
                 description: 'Test Description Topic',
-                image: 'Test Image'
             });
         expect(res).to.have.status(400);
         expect(res.body).to.be.an('object');
@@ -64,7 +64,7 @@ describe('Tpic', () => {
             .send({
                 name: 'Test Topic',
                 description: 'Test Description Topic',
-                image: 'https://www.google.com'
+                categories: [1, 2]
             });
         expect(res).to.have.status(201);
         expect(res.body).to.be.an('object');
@@ -79,7 +79,7 @@ describe('Tpic', () => {
             .send({
                 name: 'Test',
                 description: 'Test Description Topic',
-                image: 'Test Image'
+                categories: [4]
             });
         expect(res).to.have.status(400);
         expect(res.body).to.be.an('object');
@@ -93,12 +93,14 @@ describe('Tpic', () => {
             .send({
                 name: 'Test Topic',
                 description: 'Test Description Topic',
-                image: 'https://www.google.com'
+                categories: [1, 2, 3]
             });
         expect(res).to.have.status(200);
         expect(res.body).to.be.an('object');
         expect(res.body).to.have.property('id');
         expect(res.body.id).to.is.equal(id);
+        expect(res.body).to.have.property('categories');
+        expect(res.body.categories).to.be.an('array');
     });
 
 });

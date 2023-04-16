@@ -26,4 +26,29 @@ type CreateOrUpdateTopicRequest = {
     name: string;
     description: string;
     image: string;
+    categories: number[];
 };
+
+type CreateOrUpdateCategoryRequest = {
+    name: string;
+    description: string;
+    image: string;
+};
+
+type CreateOrUpdatePublicationRequest = {
+    title: string;
+    description: string;
+    topic_id: number;
+    contents: Array<{
+        category_id: number;
+        content: Record<string, string>;
+    }>;
+};
+
+type FiltersPublications = {
+    page?: number;
+    limit: number;
+    sortBy?: string;
+    sortOrder?: string;
+    query?: string;
+}

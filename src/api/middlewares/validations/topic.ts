@@ -1,5 +1,7 @@
 import { checkSchema, body, query, param } from 'express-validator';
 import Topic from '../../../models/Topic';
+import Category from '../../../models/Category';
+import { Op } from 'sequelize';
 
 export const createTopic = checkSchema({
     name: {
@@ -12,7 +14,7 @@ export const createTopic = checkSchema({
         custom: {
             options: async (value: string) => {
                 // Only letters are allowed.
-                if (!value.match(/^[a-zA-Z\s]*$/)) {
+                if (!value.match(/^[ a-zA-ZÀ-ÿ\u00f1\u00d1]*$/g)) {
                     return Promise.reject('Only letters are allowed');
                 }
                 // Check if topic with this name already exists.
@@ -31,15 +33,22 @@ export const createTopic = checkSchema({
             errorMessage: 'Must be between 8 and 60 characters',
         }
     },
-    image: {
+    categories: {
         in: 'body',
-        isString: { errorMessage: 'Must be a string' },
-        isLength: {
-            options: { min: 8, max: 60 },
-            errorMessage: 'Must be between 8 and 60 characters',
-        },
-        isURL: { errorMessage: 'Must be a valid URL' }
-    },
+        isArray: { errorMessage: 'Must be an array' },
+        isEmpty: { negated: true, errorMessage: 'Must not be empty' },
+        custom: {
+            options: async (value: number[]) => {
+                // Check if all categories are valid.
+                const categories = await Category.findAll({ 
+                    where: { id: { [Op.in]: value } }
+                });
+                if (categories.length !== value.length) {
+                    return Promise.reject('Some categories are invalid');
+                }
+            }
+        }
+    }
 });
 
 export const updateTopic = checkSchema({
@@ -65,7 +74,7 @@ export const updateTopic = checkSchema({
         custom: {
             options: async (value: string, { req }) => {
                 // Only letters are allowed.
-                if (!value.match(/^[a-zA-Z\s]*$/)) {
+                if (!value.match(/^[ a-zA-ZÀ-ÿ\u00f1\u00d1]*$/g)) {
                     return Promise.reject('Only letters are allowed');
                 }
                 // Check if topic with this name already exists.
@@ -86,15 +95,22 @@ export const updateTopic = checkSchema({
             errorMessage: 'Must be between 8 and 60 characters',
         }
     },
-    image: {
+    categories: {
         in: 'body',
-        isString: { errorMessage: 'Must be a string' },
-        isLength: {
-            options: { min: 8, max: 60 },
-            errorMessage: 'Must be between 8 and 60 characters',
-        },
-        isURL: { errorMessage: 'Must be a valid URL' }
-    },
+        isArray: { errorMessage: 'Must be an array' },
+        isEmpty: { negated: true, errorMessage: 'Must not be empty' },
+        custom: {
+            options: async (value: number[]) => {
+                // Check if all categories are valid.
+                const categories = await Category.findAll({ 
+                    where: { id: { [Op.in]: value } }
+                });
+                if (categories.length !== value.length) {
+                    return Promise.reject('Some categories are invalid');
+                }
+            }
+        }
+    }
 });
 
 export const getOrdeleteTopic = checkSchema({

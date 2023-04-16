@@ -2,20 +2,17 @@ import Topic from '../models/Topic';
 
 export default () => {
     return Topic.bulkCreate([
-        {
+        { // 1
             name: 'Ciencias',
             description: 'Ciencias de la naturaleza',
-            image: 'https://www.abc.es/Media/201801/12/ciencias-650x366.jpg',
         },
-        {
+        { // 2
             name: 'Matemáticas',
             description: 'Matemáticas y lógica',
-            image: 'https://www.abc.es/Media/201801/12/ciencias-650x366.jpg',
         },
-        {
+        { // 3
             name: 'Deportes',
             description: 'Deportes y juegos',
-            image: 'https://www.abc.es/Media/201801/12/ciencias-650x366.jpg',
         },
     ]);
 };
